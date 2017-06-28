@@ -1,0 +1,49 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0px auto;
+}
+
+.row {
+  &:before {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    @extend .row:before;
+    clear: both;
+  }
+}
+
+#prueba1 {
+  background-color: green;
+}
+
+#prueba2 {
+  background-color: yellow;
+}
+
+[class*="col-"]{
+  min-height: 7px;
+  padding: 12px;
+  float: left;
+}
+
+// Dedifimos una funcion para definir el ancho de las columnas
+@function anchoColumnas($columns) {
+  // Aqui van la operacion: numeroDeColumnas/columnasTotales*100
+  // percentage multiplica lo que este dentro de los parentesis x 100
+  @return percentage(($columns/12));
+}
+
+@for $numColumna from 1 through 12{
+  .col-#{$numColumna}{
+    width: anchoColumnas($numColumna);
+  }
+}
